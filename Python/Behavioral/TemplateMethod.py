@@ -19,29 +19,31 @@ class Builder:
 
 class AndroidBuilder(Builder):
     def test(self):
-        print 'Running android tests'
+        print('Running android tests')
 
     def lint(self):
-        print 'Linting the android code'
+        print('Linting the android code')
 
     def assemble(self):
-        print 'Assembling the android build'
+        print('Assembling the android build')
 
     def deploy(self):
-        print 'Deploying android build to server'
+        print('Deploying android build to server')
+
 
 class IosBuilder(Builder):
     def test(self):
-        print 'Running ios tests'
+        print('Running ios tests')
 
     def lint(self):
-        print 'Linting the ios code'
+        print('Linting the ios code')
 
     def assemble(self):
-        print 'Assembling the ios build'
+        print('Assembling the ios build')
 
     def deploy(self):
-        print 'Deploying ios build to server'
+        print('Deploying ios build to server')
+
 
 androidBuilder = AndroidBuilder()
 androidBuilder.build()

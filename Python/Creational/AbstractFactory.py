@@ -4,11 +4,13 @@ class Door:
 
 class WoodenDoor(Door):
     def getDescription(self):
-        print 'I am a wooden door'
+        print('I am a wooden door')
+
 
 class IronDoor(Door):
     def getDescription(self):
-        print 'I am an iron door'
+        print('I am an iron door')
+
 
 class DoorFittingExpert:
     def getDescription(self):
@@ -16,11 +18,13 @@ class DoorFittingExpert:
 
 class Welder(DoorFittingExpert):
     def getDescription(self):
-        print 'I can only fit iron doors'
+        print('I can only fit iron doors')
+
 
 class Carpenter(DoorFittingExpert):
     def getDescription(self):
-        print 'I can only fit wooden doors'
+        print('I can only fit wooden doors')
+
 
 class DoorFactory:
     def makeDoor(self):

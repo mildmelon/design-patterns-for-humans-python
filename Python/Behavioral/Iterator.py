@@ -33,9 +33,9 @@ if __name__ == '__main__':
     stationList.addStation(RadioStation(103))
 
     for station in stationList:
-        print station.getFrequency()
+        print(station.getFrequency())
 
     stationList.removeStation(RadioStation(89))
 
     for station in stationList:
-        print station.getFrequency()
+        print(station.getFrequency())

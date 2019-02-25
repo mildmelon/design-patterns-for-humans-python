@@ -7,13 +7,15 @@ class Door:
 
 class LabDoor(Door):
     def open(self):
-        print "Opening lab door"
+        print('Opening lab door')
 
     def close(self):
-        print "Closing the lab door"
+        print('Closing the lab door')
+
 
 class SecuredDoor():
     _door = None
+    __real_password = '$ecr@t'
 
     def __init__(self, door):
         self.door = door
@@ -22,13 +24,14 @@ class SecuredDoor():
         if self.authenticate(password):
             self.door.open()
         else:
-            print "Big no! It ain't possible."
+            print('Big no! It ain\'t possible.')
 
     def authenticate(self, password):
-        return password == '$ecr@t'
+        return password == self.__real_password
 
     def close(self):
         self.door.close()
+
 
 if __name__ == '__main__':
     door = SecuredDoor(LabDoor())

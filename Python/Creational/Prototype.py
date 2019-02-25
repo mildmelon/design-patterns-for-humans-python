@@ -23,11 +23,11 @@ class Sheep:
 
 if __name__ == '__main__':
     original = Sheep('Jolly')
-    print original.getName()
-    print original.getCategory()
+    print(original.getName())
+    print(original.getCategory())
 
     cloned = copy.copy(original)
     cloned.setName('Dolly')
-    print cloned.getName()
-    print cloned.getCategory()
-    print original.getName()
+    print(cloned.getName())
+    print(cloned.getCategory())
+    print(original.getName())

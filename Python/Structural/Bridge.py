@@ -12,7 +12,7 @@ class About(WebPage):
         self.theme = theme
 
     def getContent(self):
-        return "About page in " + self.theme.getColor()
+        return 'About page in ' + self.theme.getColor()
 
 class Careers(WebPage):
     _theme = None
@@ -21,7 +21,7 @@ class Careers(WebPage):
         self.theme = theme
 
     def getContent(self):
-        return "Careers page in " + self.theme.getColor()
+        return 'Careers page in ' + self.theme.getColor()
 
 class Theme:
     def getColor(self):
@@ -46,5 +46,5 @@ if __name__ == '__main__':
     about = About(darkTheme)
     careers = Careers(darkTheme)
 
-    print about.getContent()
-    print careers.getContent()
+    print(about.getContent())
+    print(careers.getContent())

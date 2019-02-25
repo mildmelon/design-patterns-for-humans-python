@@ -4,11 +4,13 @@ class Interviewer:
 
 class Developer(Interviewer):
     def askQuestions(self):
-        print 'Asking about design patterns'
+        print('Asking about design patterns')
+
 
 class CommunityExecutive(Interviewer):
     def askQuestions(self):
-        print 'Asking about community building'
+        print('Asking about community building')
+
 
 class HiringManager:
     def makeInterviewer(self):

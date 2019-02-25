@@ -1,9 +1,10 @@
 class Bulb:
-    def turnOn(self):
-        print "Bulb has been lit"
+    def turn_on(self):
+        print('Bulb has been lit')
 
-    def turnOff(self):
-        print "Darkness!"
+    def turn_off(self):
+        print('Darkness!')
+
 
 class Command:
     def execute(self):
@@ -15,6 +16,7 @@ class Command:
     def redo(self):
         pass
 
+
 class TurnOn(Command):
     _bulb = None
 
@@ -22,32 +24,35 @@ class TurnOn(Command):
         self._bulb = bulb
 
     def execute(self):
-        self._bulb.turnOn()
+        self._bulb.turn_on()
 
     def undo(self):
-        self._bulb.turnOff()
+        self._bulb.turn_off()
 
     def redo(self):
         self.execute()
+
 
 class TurnOff(Command):
     _bulb = None
 
-    def __init__(self, bulb):
-        self.bulb = bulb
+    def __init__(self, bulb: Bulb):
+        self._bulb = bulb
 
     def execute(self):
-        self.bulb.turnOff()
+        self._bulb.turn_off()
 
     def undo(self):
-        self.bulb.turnOn()
+        self._bulb.turn_on()
 
     def redo(self):
         self.execute()
 
+
 class RemoteControl:
-    def submit(self, command):
+    def submit(self, command: Command):
         command.execute()
+
 
 if __name__ == '__main__':
     bulb = Bulb()
@@ -56,5 +61,5 @@ if __name__ == '__main__':
     turnOff = TurnOff(bulb)
 
     remote = RemoteControl()
-    remote.submit(turnOn) # Bulb has been lit!
-    remote.submit(turnOff) # Darkness!
+    remote.submit(turnOn)  # Bulb has been lit!
+    remote.submit(turnOff)  # Darkness!

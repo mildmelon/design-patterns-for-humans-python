@@ -435,7 +435,7 @@ class President:
 
     def __init__(self):
         if President.__instance != None:
-            raise Exception("This class is a singleton!")
+            raise Exception('This class is a singleton!')
         else:
             President.__instance = self
 ```
@@ -565,7 +565,7 @@ class About(WebPage):
         self.theme = theme
 
     def getContent(self):
-        return "About page in " + self.theme.getColor()
+        return 'About page in ' + self.theme.getColor()
 
 class Careers(WebPage):
     _theme = None
@@ -574,7 +574,7 @@ class Careers(WebPage):
         self.theme = theme
 
     def getContent(self):
-        return "Careers page in " + self.theme.getColor()
+        return 'Careers page in ' + self.theme.getColor()
 ```
 And the separate theme hierarchy
 ```python
@@ -711,7 +711,7 @@ And then it can be used as
     organization.addEmployee(john)
     organization.addEmployee(jane)
 
-    print "Net Salaries " + str(organization.getNetSalaries()) # Net Salaries: 27000
+    print 'Net Salaries ' + str(organization.getNetSalaries()) # Net Salaries: 27000
 ```
 
 ☕ Decorator
@@ -825,25 +825,25 @@ Taking our computer example from above. Here we have the computer class
 ```python
 class Computer:
     def getElectricShock(self):
-        print "Ouch!"
+        print 'Ouch!'
 
     def makeSound(self):
-        print "Beep Beep!"
+        print 'Beep Beep!'
 
     def showLoadingScreen(self):
-        print "Loading..."
+        print 'Loading...'
 
     def bam(self):
-        print "Ready to be used..."
+        print 'Ready to be used...'
 
     def closeEverything(self):
-        print "Bup bup bup buzzz!"
+        print 'Bup bup bup buzzz!'
 
     def sooth(self):
-        print "Zzzzz"
+        print 'Zzzzz'
 
     def pullCurrent(self):
-        print "Haaah!"
+        print 'Haaah!'
 ```
 Here we have the facade
 ```python
@@ -916,7 +916,7 @@ class TeaShop:
 
     def serve(self):
         for table, tea in self._orders.iteritems():
-            print "Serving tea to table #" + str(table)
+            print 'Serving tea to table #' + str(table)
 ```
 And it can be used as below
 
@@ -959,10 +959,10 @@ class Door:
 
 class LabDoor(Door):
     def open(self):
-        print "Opening lab door"
+        print 'Opening lab door'
 
     def close(self):
-        print "Closing the lab door"
+        print 'Closing the lab door'
 ```
 Then we have a proxy to secure any doors that we want
 ```python
@@ -976,7 +976,7 @@ class SecuredDoor():
         if self.authenticate(password):
             self.door.open()
         else:
-            print "Big no! It ain't possible."
+            print 'Big no! It ain't possible.'
 
     def authenticate(self, password):
         return password == '$ecr@t'
@@ -1044,12 +1044,12 @@ class Account:
         import inspect
         myCaller = inspect.stack()[1][3]
         if self.canPay(amountToPay):
-            print "Paid " + str(amountToPay) + " using " + myCaller
+            print 'Paid " + str(amountToPay) + " using ' + myCaller
         elif (self._successor):
-            print "Cannot pay using " + myCaller + ". Proceeding .."
+            print 'Cannot pay using " + myCaller + ". Proceeding ..'
             self._successor.pay(amountToPay)
         else:
-            raise ValueError('None of the accounts have enough balance')
+            raise ValueError(_balance)
     def canPay(self, amount):
         return self.balance >= amount
 
@@ -1082,9 +1082,9 @@ Now let's prepare the chain using the links defined above (i.e. Bank, Paypal, Bi
 #      If bank can't pay then paypal
 #      If paypal can't pay then bit coin
 
-bank = Bank(100) # Bank with balance 100
-paypal = Paypal(200) # Paypal with balance 200
-bitcoin = Bitcoin(300) # Bitcoin with balance 300
+bank = Bank(100) _balance
+paypal = Paypal(200) _balance
+bitcoin = Bitcoin(300) _balance
 
 bank.setNext(paypal)
 paypal.setNext(bitcoin)
@@ -1120,10 +1120,10 @@ First of all we have the receiver that has the implementation of every action th
 # Receiver
 class Bulb:
     def turnOn(self):
-        print "Bulb has been lit"
+        print 'Bulb has been lit'
 
     def turnOff(self):
-        print "Darkness!"
+        print 'Darkness!'
 ```
 then we have an interface that each of the commands are going to implement and then we have a set of commands
 ```python

@@ -14,7 +14,8 @@ class JobSeeker:
         self.name = name
 
     def onJobPosted(self, job):
-        print 'Hi ' + self.name + '! New job posted: ' + job.getTitle()
+        print('Hi ' + self.name + '! New job posted: ' + job.getTitle())
+
 
 class EmploymentAgency:
     _observers = []

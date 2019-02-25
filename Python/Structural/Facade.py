@@ -1,24 +1,25 @@
 class Computer:
     def getElectricShock(self):
-        print "Ouch!"
+        print('Ouch!')
 
     def makeSound(self):
-        print "Beep Beep!"
+        print('Beep Beep!')
 
     def showLoadingScreen(self):
-        print "Loading..."
+        print('Loading...')
 
     def bam(self):
-        print "Ready to be used..."
+        print('Ready to be used...')
 
     def closeEverything(self):
-        print "Bup bup bup buzzz!"
+        print('Bup bup bup buzzz!')
 
     def sooth(self):
-        print "Zzzzz"
+        print('Zzzzz')
 
     def pullCurrent(self):
-        print "Haaah!"
+        print('Haaah!')
+
 
 class ComputerFacade:
     _computer = None

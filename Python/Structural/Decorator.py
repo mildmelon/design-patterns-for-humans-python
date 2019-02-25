@@ -51,17 +51,17 @@ class VanillaCoffee(Coffee):
 
 if __name__ == '__main__':
     someCoffee = SimpleCoffee()
-    print someCoffee.getCost()
-    print someCoffee.getDescription()
+    print(someCoffee.getCost())
+    print(someCoffee.getDescription())
 
     someCoffee = MilkCoffee(someCoffee)
-    print someCoffee.getCost()
-    print someCoffee.getDescription()
+    print(someCoffee.getCost())
+    print(someCoffee.getDescription())
 
     someCoffee = VanillaCoffee(someCoffee)
-    print someCoffee.getCost()
-    print someCoffee.getDescription()
+    print(someCoffee.getCost())
+    print(someCoffee.getDescription())
 
     someCoffee = WhipCoffee(someCoffee)
-    print someCoffee.getCost()
-    print someCoffee.getDescription()
+    print(someCoffee.getCost())
+    print(someCoffee.getDescription())

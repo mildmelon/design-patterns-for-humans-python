@@ -22,7 +22,7 @@ class TeaShop:
 
     def serve(self):
         for table, tea in self._orders.iteritems():
-            print "Serving tea to table #" + str(table)
+            print('Serving tea to table #' + str(table))
 
 
 if __name__ == '__main__':

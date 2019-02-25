@@ -4,13 +4,13 @@ class SortStrategy:
 
 class BubbleSortStrategy(SortStrategy):
     def sort(self, dataset):
-        print 'Sorting using bubble sort'
+        print('Sorting using bubble sort')
 
         return dataset
 
 class QuickSortStrategy(SortStrategy):
     def sort(self, dataset):
-        print 'Sorting using quick sort'
+        print('Sorting using quick sort')
         return dataset
 
 class Sorter:

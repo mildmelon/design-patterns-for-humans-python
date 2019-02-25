@@ -8,7 +8,8 @@ class ChatRoom(ChatRoomMediator):
         time = datetime.datetime.now()
         sender = user.getName()
 
-        print str(time) + '[' + sender + ']: ' + message
+        print(str(time) + '[' + sender + ']: ' + message)
+
 
 class User:
     _name = None

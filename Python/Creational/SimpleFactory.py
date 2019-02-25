@@ -27,5 +27,5 @@ class DoorFactory:
 
 if __name__ == '__main__':
     door = DoorFactory.makeDoor(10,10)
-    print door.getHeight()
-    print door.getWidth()
+    print(door.getHeight())
+    print(door.getWidth())

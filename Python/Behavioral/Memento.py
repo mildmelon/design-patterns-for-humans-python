@@ -30,7 +30,7 @@ editor.type('This is the second.')
 saved = editor.save()
 editor.type('And this is the third')
 
-print editor.getContent() # This is the first sentence. This is second. And this is third.
+print(editor.getContent())  # This is the first sentence. This is second. And this is third.
 
 editor.restore(saved)
 editor.getContent() # This is the first sentence. This is second.

@@ -78,4 +78,4 @@ if __name__ == '__main__':
     organization.addEmployee(john)
     organization.addEmployee(jane)
 
-    print "Net Salaries " + str(organization.getNetSalaries())
+    print('Net Salaries ' + str(organization.getNetSalaries()))

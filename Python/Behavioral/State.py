@@ -4,15 +4,18 @@ class WritingState:
 
 class UpperCase(WritingState):
     def write(self, words):
-        print words.upper()
+        print(words.upper())
+
 
 class LowerCase(WritingState):
     def write(self, words):
-        print words.lower()
+        print(words.lower())
+
 
 class DefaultText(WritingState):
     def write(self, words):
-        print words
+        print(words)
+
 
 class TextEditor():
     _state = None
