@@ -714,11 +714,11 @@ And then it can be used as
     print "Net Salaries " + str(organization.getNetSalaries()) # Net Salaries: 27000
 ```
 
+
 ☕ Decorator
 -------------
 
 Real world example
-
 > Imagine you run a car service shop offering multiple services. Now how do you calculate the bill to be charged? You pick one service and dynamically keep adding to it the prices for the provided services till you get the final cost. Here each type of service is a decorator.
 
 In plain words
@@ -730,81 +730,86 @@ Wikipedia says
 **Programmatic Example**
 
 Lets take coffee for example. First of all we have a simple coffee implementing the coffee interface
-
 ```python
-class Coffee:
-    def getCost(self):
+import abc
+
+
+class Coffee(abc.ABC):
+    @abc.abstractmethod
+    def get_cost(self) -> int:
         pass
 
-    def getDescription(self):
+    @abc.abstractmethod
+    def get_description(self) -> str:
         pass
+
+    def __str__(self):
+        return f'{self.get_description()}: ${self.get_cost()}'
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class SimpleCoffee(Coffee):
-    def getCost(self):
-        return 10
+    def get_cost(self):
+        return 2
 
-    def getDescription(self):
+    def get_description(self):
         return 'Simple Coffee'
 ```
-We want to make the code extensible to allow options to modify it if required. Lets make some add-ons (decorators)
+
+We want to make the code extensible to allow options to modify it if required. Lets make some mixins (decorators)
 ```python
-class MilkCoffee(Coffee):
-    _coffee = None
-
-    def __init__(self, coffee):
+class CoffeeMixin(Coffee):
+    @abc.abstractmethod
+    def __init__(self, coffee: Coffee, cost: int, desc: str):
         self._coffee = coffee
+        self._cost = cost
+        self._desc = desc
 
-    def getCost(self):
-        return self._coffee.getCost() + 2
+    def get_cost(self):
+        return self._coffee.get_cost() + self._cost
 
-    def getDescription(self):
-        return self._coffee.getDescription() + ', milk'
+    def get_description(self):
+        return f'{self._coffee.get_description()}, {self._desc}'
 
-class WhipCoffee(Coffee):
-    _coffee = None
 
+class MilkMixin(CoffeeMixin):
     def __init__(self, coffee):
-        self._coffee = coffee
-
-    def getCost(self):
-        return self._coffee.getCost() + 5
-
-    def getDescription(self):
-        return self._coffee.getDescription() + ', whip'
+        super().__init__(coffee, cost=2, desc='milk')
 
 
-class VanillaCoffee(Coffee):
-    _coffee = None
-
+class WhipMixin(CoffeeMixin):
     def __init__(self, coffee):
-        self._coffee = coffee
+        super().__init__(coffee, cost=5, desc='whip')
 
-    def getCost(self):
-        return self._coffee.getCost() + 3
 
-    def getDescription(self):
-        return self._coffee.getDescription() + ', vanilla'
+class VanillaMixin(CoffeeMixin):
+    def __init__(self, coffee):
+        super().__init__(coffee, cost=3, desc='vanilla')
 ```
 
 Lets make a coffee now
-
 ```python
-someCoffee = SimpleCoffee()
-print someCoffee.getCost()
-print someCoffee.getDescription()
+order = SimpleCoffee()
+print(order)
 
-someCoffee = MilkCoffee(someCoffee)
-print someCoffee.getCost()
-print someCoffee.getDescription()
+order = MilkMixin(order)
+print(order)
 
-someCoffee = VanillaCoffee(someCoffee)
-print someCoffee.getCost()
-print someCoffee.getDescription()
+order = VanillaMixin(order)
+print(order)
 
-someCoffee = WhipCoffee(someCoffee)
-print someCoffee.getCost()
-print someCoffee.getDescription()
+order = WhipMixin(order)
+print(order)
 ```
+```bash
+Simple Coffee: $2
+Simple Coffee, milk: $4
+Simple Coffee, milk, vanilla: $7
+Simple Coffee, milk, vanilla, whip: $12
+```
+
 
 📦 Facade
 ----------------
