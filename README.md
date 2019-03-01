@@ -51,12 +51,12 @@ In plain words
 Wikipedia says
 > In software engineering, creational design patterns are design patterns that deal with object creation mechanisms, trying to create objects in a manner suitable to the situation. The basic form of object creation could result in design problems or added complexity to the design. Creational design patterns solve this problem by somehow controlling this object creation.
 
- * [Simple Factory](#-simple-factory)
- * [Factory Method](#-factory-method)
- * [Abstract Factory](#-abstract-factory)
- * [Builder](#-builder)
- * [Prototype](#-prototype)
- * [Singleton](#-singleton)
+ * [Simple Factory](#simple-factory-)
+ * [Factory Method](#factory-method-)
+ * [Abstract Factory](#abstract-factory-)
+ * [Builder](#builder-)
+ * [Prototype](#prototype-)
+ * [Singleton](#singleton-)
 
 
 Simple Factory 🏠
@@ -117,7 +117,7 @@ if __name__ == '__main__':
 
 When creating an object is not just a few assignments and involves some logic, it makes sense to put it in a dedicated factory instead of repeating the same code everywhere.
 
-🏭 Factory Method
+Factory Method 🏭
 --------------
 
 Real world example
@@ -183,7 +183,7 @@ marketingManager.takeInterview()
 
 Useful when there is some generic processing in a class but the required sub-class is dynamically decided at runtime. Or putting it in other words, when the client doesn't know what exact sub-class it might need.
 
-🔨 Abstract Factory
+Abstract Factory 🔨
 ----------------
 
 Real world example
@@ -276,8 +276,8 @@ As you can see the wooden door factory has encapsulated the `carpenter` and the 
 
 When there are interrelated dependencies with not-that-simple creation logic involved
 
-👷 Builder
---------------------------------------------
+Builder 👷
+-------
 Real world example
 > Imagine you are at Hardee's and you order a specific deal, lets say, "Big Hardee" and they hand it over to you without *any questions*; this is the example of simple factory. But there are cases when the creation logic might involve more steps. For example you want a customized Subway deal, you have several options in how your burger is made e.g what bread do you want? what types of sauces would you like? What cheese would you want? etc. In such cases builder pattern comes to the rescue.
 
@@ -360,8 +360,8 @@ burger = BurgerBuilder(10).addPepperoni().addLettuce().addTomato().build()
 
 When there could be several flavors of an object and to avoid the constructor telescoping. The key difference from the factory pattern is that; factory pattern is to be used when the creation is a one step process while builder pattern is to be used when the creation is a multi step process.
 
-🐑 Prototype
-------------
+Prototype 🐑
+---------
 Real world example
 > Remember dolly? The sheep that was cloned! Lets not get into the details but the key point here is that it is all about cloning
 
@@ -416,8 +416,8 @@ Also you could use the magic method `__clone` to modify the cloning behavior.
 
 When an object is required that is similar to existing object or when the creation would be expensive as compared to cloning.
 
-💍 Singleton
-------------
+Singleton 💍
+---------
 Real world example
 > There can only be one president of a country at a time. The same president has to be brought to action, whenever duty calls. President here is singleton.
 
@@ -460,23 +460,26 @@ else:
     print 'Objects are not the same'
 ```
 
+
 Structural Design Patterns
 ==========================
+
 In plain words
 > Structural patterns are mostly concerned with object composition or in other words how the entities can use each other. Or yet another explanation would be, they help in answering "How to build a software component?"
 
 Wikipedia says
 > In software engineering, structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
 
- * [Adapter](#-adapter)
- * [Bridge](#-bridge)
- * [Composite](#-composite)
- * [Decorator](#-decorator)
- * [Facade](#-facade)
- * [Flyweight](#-flyweight)
- * [Proxy](#-proxy)
+* [Adapter](#adapter-)
+* [Bridge](#bridge-)
+* [Composite](#composite-)
+* [Decorator](#decorator-)
+* [Facade](#facade-)
+* [Flyweight](#flyweight-)
+* [Proxy](#proxy-)
 
-🔌 Adapter
+
+Adapter 🔌
 -------
 Real world example
 > Consider that you have some pictures in your memory card and you need to transfer them to your computer. In order to transfer them you need some kind of adapter that is compatible with your computer ports so that you can attach memory card to your computer. In this case card reader is an adapter.
@@ -542,8 +545,10 @@ hunter = Hunter()
 hunter.hunt(wildDogAdapter)
 ```
 
-🚡 Bridge
+
+Bridge 🚡
 ------
+
 Real world example
 > Consider you have a website with different pages and you are supposed to allow the user to change the theme. What would you do? Create multiple copies of each of the pages for each of the themes or would you just create separate theme and load them based on the user's preferences? Bridge pattern allows you to do the second i.e.
 
@@ -615,8 +620,8 @@ print about.getContent()
 print careers.getContent()
 ```
 
-🌿 Composite
------------------
+Composite 🌿
+---------
 
 Real world example
 > Every organization is composed of employees. Each of the employees has the same features i.e. has a salary, has some responsibilities, may or may not report to someone, may or may not have some subordinates etc.
@@ -724,8 +729,8 @@ And then it can be used as
 ```
 
 
-☕ Decorator
--------------
+Decorator ☕
+---------
 
 Real world example
 > Imagine you run a car service shop offering multiple services. Now how do you calculate the bill to be charged? You pick one service and dynamically keep adding to it the prices for the provided services till you get the final cost. Here each type of service is a decorator.
@@ -820,8 +825,8 @@ Simple Coffee, milk, vanilla, whip: $12
 ```
 
 
-📦 Facade
-----------------
+Facade 📦
+------
 
 Real world example
 > How do you turn on the computer? "Hit the power button" you say! That is what you believe because you are using a simple interface that computer provides on the outside, internally it has to do a lot of stuff to make it happen. This simple interface to the complex subsystem is a facade.
@@ -885,7 +890,7 @@ computer.turnOn()
 computer.turnOff()
 ```
 
-🍃 Flyweight
+Flyweight 🍃
 ---------
 
 Real world example
@@ -948,8 +953,8 @@ shop.serve()
 # Serving tea to table# 5
 ```
 
-🎱 Proxy
--------------------
+Proxy 🎱
+-----
 Real world example
 > Have you ever used an access card to go through a door? There are multiple options to open that door i.e. it can be opened either using access card or by pressing a button that bypasses the security. The door's main functionality is to open but there is a proxy added on top of it to add some functionality. Let me better explain it using the code example below.
 
@@ -1017,18 +1022,18 @@ In plain words
 Wikipedia says
 > In software engineering, behavioral design patterns are design patterns that identify common communication patterns between objects and realize these patterns. By doing so, these patterns increase flexibility in carrying out this communication.
 
-* [Chain of Responsibility](#-chain-of-responsibility)
-* [Command](#-command)
-* [Iterator](#-iterator)
-* [Mediator](#-mediator)
-* [Memento](#-memento)
-* [Observer](#-observer)
-* [Visitor](#-visitor)
-* [Strategy](#-strategy)
-* [State](#-state)
-* [Template Method](#-template-method)
+* [Chain of Responsibility](#chain-of-responsibility-)
+* [Command](#command-)
+* [Iterator](#iterator-)
+* [Mediator](#mediator-)
+* [Memento](#memento-)
+* [Observer](#observer-)
+* [Visitor](#visitor-)
+* [Strategy](#strategy-)
+* [State](#state-)
+* [Template Method](#template-method-)
 
-🔗 Chain of Responsibility
+Chain of Responsibility 🔗
 -----------------------
 
 Real world example
@@ -1114,7 +1119,7 @@ Paid 259 using Bitcoin!
 '''
 ```
 
-👮 Command
+Command 👮
 -------
 
 Real world example
@@ -1202,7 +1207,7 @@ remote.submit(turnOff) # Darkness!
 
 Command pattern can also be used to implement a transaction based system. Where you keep maintaining the history of commands as soon as you execute them. If the final command is successfully executed, all good otherwise just iterate through the history and keep executing the `undo` on all the executed commands.
 
-➿ Iterator
+Iterator ➿
 --------
 
 Real world example
@@ -1265,8 +1270,8 @@ And then it can be used as
         print station.getFrequency()
 ```
 
-👽 Mediator
-========
+Mediator 👽
+--------
 
 Real world example
 > A general example would be when you talk to someone on your mobile phone, there is a network provider sitting between you and them and your conversation goes through it instead of being directly sent. In this case network provider is mediator.
@@ -1327,7 +1332,7 @@ jane.send('Hey!')
 # Feb 14, 10:58 [Jane]: Hey!
 ```
 
-💾 Memento
+Memento 💾
 -------
 Real world example
 > Take the example of calculator (i.e. originator), where whenever you perform some calculation the last calculation is saved in memory (i.e. memento) so that you can get back to it and maybe get it restored using some action buttons (i.e. caretaker).
@@ -1393,7 +1398,7 @@ editor.restore(saved)
 editor.getContent() # This is the first sentence. This is second.
 ```
 
-😎 Observer
+Observer 😎
 --------
 Real world example
 > A good example would be the job seekers where they subscribe to some job posting site and they are notified whenever there is a matching job opportunity.   
@@ -1459,7 +1464,7 @@ Hi Jane Doe! New job posted: Software Engineer
 '''
 ```
 
-🏃 Visitor
+Visitor 🏃
 -------
 Real world example
 > Consider someone visiting Dubai. They just need a way (i.e. visa) to enter Dubai. After arrival, they can come and visit any place in Dubai on their own without having to ask for permission or to do some leg work in order to visit any place here; just let them know of a place and they can visit it. Visitor pattern lets you do just that, it helps you add places to visit so that they can visit as much as they can without having to do any legwork.
@@ -1565,7 +1570,7 @@ dolphin.accept(speak)   # Tuut tutt tuutt!
 dolphin.accept(jump)    # Walked on water a little and disappeared
 ```
 
-💡 Strategy
+Strategy 💡
 --------
 
 Real world example
@@ -1620,7 +1625,7 @@ sorter = Sorter(QuickSortStrategy())
 sorter.sort(dataset)
 ```
 
-💢 State
+State 💢
 -----
 Real world example
 > Imagine you are using some drawing application, you choose the paint brush to draw. Now the brush changes its behavior based on the selected color i.e. if you have chosen red color it will draw in red, if blue then it will be in blue etc.  
