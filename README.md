@@ -4,28 +4,31 @@
 
 <p align="center">
 🎉 Ultra-simplified explanation to design patterns! 🎉
+<br>
+...demonstrated with PEP8 compliant python.
 </p>
 <p align="center">
-A topic that can easily make anyone's mind wobble. Here I try to make them stick in to your mind (and maybe mine) by explaining them in the <i>simplest</i> way possible.
+A topic that can easily make anyone's mind wobble. Here I try to make them stick in to our minds by explaining them in the <i>simplest</i> way possible, while showing best practices.
 </p>
+
+<b>This version has been updated with the assumption that the reader has a strong understanding of python, all examples use python 3.5+</b>
 
 ***
 
-<sub>Check out my [blog](http://kamranahmed.info) and say "hi" on [Twitter](https://twitter.com/kamranahmedse).</sub>
 
-🚀 Introduction
+Introduction 🚀
 =================
 
 Design patterns are solutions to recurring problems; **guidelines on how to tackle certain problems**. They are not classes, packages or libraries that you can plug into your application and wait for the magic to happen. These are, rather, guidelines on how to tackle certain problems in certain situations.
-
 > Design patterns are solutions to recurring problems; guidelines on how to tackle certain problems
 
 Wikipedia describes them as
-
 > In software engineering, a software design pattern is a general reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. It is a description or template for how to solve a problem that can be used in many different situations.
 
-⚠️ Be Careful
+
+Be Careful ⚠
 -----------------
+
 - Design patterns are not a silver bullet to all your problems.
 - Do not try to force them; bad things are supposed to happen, if done so. Keep in mind that design patterns are solutions **to** problems, not solutions **finding** problems; so don't overthink.
 - If used in a correct place in a correct manner, they can prove to be a savior; or else they can result in a horrible mess of a code.
@@ -37,6 +40,7 @@ Types of Design Patterns
 * [Creational](#creational-design-patterns)
 * [Structural](#structural-design-patterns)
 * [Behavioral](#behavioral-design-patterns)
+
 
 Creational Design Patterns
 ==========================
@@ -54,8 +58,10 @@ Wikipedia says
  * [Prototype](#-prototype)
  * [Singleton](#-singleton)
 
-🏠 Simple Factory
+
+Simple Factory 🏠
 --------------
+
 Real world example
 > Consider, you are building a house and you need doors. It would be a mess if every time you need a door, you put on your carpenter clothes and start making a door in your house. Instead you get it made from a factory.
 
@@ -90,18 +96,21 @@ class WoodenDoor(Door):
     def getHeight(self):
         return self.height
 ```
+
 Then we have our door factory that makes the door and returns it
 ```python
 class DoorFactory:
     @staticmethod
-    def makeDoor(width,height):
-        return WoodenDoor(width,height)
+    def makeDoor(width, height):
+        return WoodenDoor(width, height)
 ```
+
 And then it can be used as
 ```python
-door = DoorFactory.makeDoor(10,10)
-print door.getHeight()
-print door.getWidth()
+if __name__ == '__main__':
+    door = DoorFactory.makeDoor(10, 10)
+    print(door.getHeight())
+    print(door.getWidth())
 ```
 
 **When to Use?**
@@ -1682,7 +1691,7 @@ editor.type('Fifth Line')
 # fifth line
 ```
 
-📒 Template Method
+Template Method 📒
 ---------------
 
 Real world example
@@ -1781,21 +1790,22 @@ Deploying ios build to server
 '''
 ```
 
-## 🚦 Wrap Up Folks
+
+## Wrap Up Folks 🚦
 
 And that about wraps it up. I will continue to improve this, so you might want to watch/star this repository to revisit. Also, I have plans on writing the same about the architectural patterns, stay tuned for it.
 
-## 👬 Contribution
+
+## Contribution 👬
 
 - Report issues
 - Open pull request with improvements
 - Spread the word
-- Reach out with any feedback [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/kamranahmedse.svg?style=social&label=Follow%20%40kamranahmedse)](https://twitter.com/kamranahmedse)
+- Reach out with any feedback
+[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/kamranahmedse.svg?style=social&label=Follow%20%40_mildmelon)](https://twitter.com/_mildmelon)
 
-## Sponsored By
-
-- [Highig - Think and its done](http://highig.com/)
 
 ## License
 
+Creative Commons v4.0
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
