@@ -223,76 +223,96 @@ Wikipedia says
 **Programmatic Example**
 
 Translating the door example above. First of all we have our `Door` interface and some implementation for it
-
 ```python
-class Door:
-    def getDescription(self):
+import abc
+
+
+class Door(abc.ABC):
+    @abc.abstractmethod
+    def get_description(self):
         pass
+
 
 class WoodenDoor(Door):
-    def getDescription(self):
-        print 'I am a wooden door'
+    def get_description(self):
+        print('I am a wooden door')
+
 
 class IronDoor(Door):
-    def getDescription(self):
-        print 'I am an iron door'
+    def get_description(self):
+        print('I am an iron door')
 ```
-Then we have some fitting experts for each door type
 
+Then we have some fitting experts for each door type
 ```python
-class DoorFittingExpert:
-    def getDescription(self):
+class DoorFittingExpert(abc.ABC):
+    @abc.abstractmethod
+    def get_description(self):
         pass
 
+
 class Welder(DoorFittingExpert):
-    def getDescription(self):
-        print 'I can only fit iron doors'
+    def get_description(self):
+        print('I can only fit iron doors')
+
 
 class Carpenter(DoorFittingExpert):
-    def getDescription(self):
-        print 'I can only fit wooden doors'
+    def get_description(self):
+        print('I can only fit wooden doors')
 ```
 
 Now we have our abstract factory that would let us make family of related objects i.e. wooden door factory would create a wooden door and wooden door fitting expert and iron door factory would create an iron door and iron door fitting expert
 ```python
-class DoorFactory:
+class DoorFactory(abc.ABC):
+    @abc.abstractmethod
     def make_door(self):
         pass
 
-    def makeFittingExpert(self):
+    @abc.abstractmethod
+    def make_fitting_expert(self):
         pass
+
 
 class WoodenDoorFactory(DoorFactory):
     def make_door(self):
         return WoodenDoor()
 
-    def makeFittingExpert(self):
+    def make_fitting_expert(self):
         return Carpenter()
+
 
 class IronDoorFactory(DoorFactory):
     def make_door(self):
         return IronDoor()
 
-    def makeFittingExpert(self):
+    def make_fitting_expert(self):
         return Welder()
 ```
+
 And then it can be used as
 ```python
-woodenFactory = WoodenDoorFactory()
+if __name__ == '__main__':
+    woodenFactory = WoodenDoorFactory()
 
-door = woodenFactory.make_door()
-expert = woodenFactory.makeFittingExpert()
+    door = woodenFactory.make_door()
+    expert = woodenFactory.make_fitting_expert()
 
-door.getDescription()
-expert.getDescription()
+    door.get_description()
+    expert.get_description()
 
-ironFactory = IronDoorFactory()
+    ironFactory = IronDoorFactory()
 
-door = ironFactory.make_door()
-expert = ironFactory.makeFittingExpert()
+    door = ironFactory.make_door()
+    expert = ironFactory.make_fitting_expert()
 
-door.getDescription()
-expert.getDescription()
+    door.get_description()
+    expert.get_description()
+```
+```bash
+I am a wooden door
+I can only fit wooden doors
+I am an iron door
+I can only fit iron doors
 ```
 
 As you can see the wooden door factory has encapsulated the `carpenter` and the `wooden door` also iron door factory has encapsulated the `iron door` and `welder`. And thus it had helped us make sure that for each of the created door, we do not get a wrong fitting expert.   
