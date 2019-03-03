@@ -517,33 +517,75 @@ Singleton pattern is actually considered an anti-pattern and overuse of it shoul
 
 **Programmatic Example**
 
-To create a singleton, make the constructor private, disable cloning, disable extension and create a static variable to house the instance
+To create a singleton, we will define a metaclass to house all the Singleton instances and override their `__call__` methods to always return only one instance of the Singleton classes.
 ```python
-class President:
-    __instance = None
+class Singleton(type):
+    __instances = {}
 
-    @staticmethod
-    def getInstance():
-        if President.__instance == None:
-            President()
-        return President.__instance
-
-    def __init__(self):
-        if President.__instance != None:
-            raise Exception("This class is a singleton!")
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls.__instances:
+            cls.__instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
         else:
-            President.__instance = self
+            cls.__instances[cls].__init__(*args, **kwargs)
+        return cls.__instances[cls]
 ```
+
+Now in our President class, we can implement it as a Singleton by using `metaclass=Singleton`. This allows for an easy reusable metaclass for making Singleton objects.
+```python
+class President(metaclass=Singleton):
+    def __init__(self, name: str = None):
+        if name is not None:
+            self._name = name
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        self._name = name
+```
+
 Then in order to use
 ```python
 if __name__ == '__main__':
-    president1 = President.getInstance()
-    president2 = President.getInstance()
+    president1 = President(name='George Washington')
+    print('President 1:', president1.name)
 
-if president1 is president2:
-    print 'Objects are the same'
-else:
-    print 'Objects are not the same'
+    president2 = President(name='John Adams')
+    print('President 2:', president2.name)
+
+    # Even without passing in a name parameter
+    # We still have access to the singleton's attributes
+    president3 = President()
+    print('President 3:', president3.name)
+
+    # Compare all the president instances against one another
+    print('President 1 is President 2:', president1 is president2)
+    print('President 1 is President 3:', president1 is president3)
+    print('President 2 is President 3:', president2 is president3)
+
+    # Attempt to set only the first president's name
+    president1.name = 'George Washington'
+    print('President 1:', president1.name)
+    print('President 2:', president2.name)
+
+    # Attempt to set only the second president's name
+    president2.name = 'John Adams'
+    print('President 1:', president1.name)
+    print('President 2:', president2.name)
+```
+```bash
+President 1: George Washington
+President 2: John Adams
+President 3: John Adams
+President 1 is President 2: True
+President 1 is President 3: True
+President 2 is President 3: True
+President 1: George Washington
+President 2: George Washington
+President 1: John Adams
+President 2: John Adams
 ```
 
 
