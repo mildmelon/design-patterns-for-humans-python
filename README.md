@@ -321,6 +321,7 @@ As you can see the wooden door factory has encapsulated the `carpenter` and the 
 
 When there are interrelated dependencies with not-that-simple creation logic involved
 
+
 Builder 👷
 -------
 
@@ -334,9 +335,9 @@ Wikipedia says
 > The builder pattern is an object creation software design pattern with the intentions of finding a solution to the telescoping constructor anti-pattern.
 
 Having said that let me add a bit about what telescoping constructor anti-pattern is. At one point or the other we have all seen a constructor like below:
-
 ```python
-def __init__(self, size, cheese=True, pepperoni=True, tomato=False, lettuce=True)
+def __init__(self, size, cheese=True, pepperoni=True, tomato=False, lettuce=True):
+    pass
 ```
 
 As you can see; the number of constructor parameters can quickly get out of hand and it might become difficult to understand the arrangement of parameters. Plus this parameter list could keep on growing if you would want to add more options in future. This is called telescoping constructor anti-pattern.
@@ -344,67 +345,92 @@ As you can see; the number of constructor parameters can quickly get out of hand
 **Programmatic Example**
 
 The sane alternative is to use the builder pattern. First of all we have our burger that we want to make
-
 ```python
 class Burger:
     _size = None
-
+    _meat = False
     _cheese = False
-    _pepperoni = False
-    _lettuce = False
     _tomato = False
+    _lettuce = False
 
-    def __init__(self, builder):
+    def __init__(self, builder: BurgerBuilder):
         self._size = builder.size
+        self._meat = builder.meat
         self._cheese = builder.cheese
-        self._pepperoni = builder.pepperoni
-        self._lettuce = builder.lettuce
         self._tomato = builder.tomato
+        self._lettuce = builder.lettuce
+
+    def __str__(self):
+        order = (f'Order: Burger',
+                 f'Size: {self._size}',
+                 f'Meat: {self._meat}',
+                 f'Cheese: {self._cheese}',
+                 f'Tomato: {self._tomato}',
+                 f'Lettuce: {self._lettuce}')
+        return '\n  '.join(order) + '\n'
 ```
 
 And then we have the builder
-
 ```python
 class BurgerBuilder:
     size = None
-
+    meat = False
     cheese = False
-    pepperoni = False
-    lettuce = False
     tomato = False
+    lettuce = False
 
     def __init__(self, size):
         self.size = size
 
-    def addPepperoni(self):
-        self.pepperoni = True
+    def add_meat(self):
+        self.meat = True
         return self
 
-    def addLettuce(self):
-        self.lettuce = True
-        return self
-
-    def addCheese(self):
+    def add_cheese(self):
         self.cheese = True
         return self
 
-    def addTomato(self):
+    def add_tomato(self):
         self.tomato = True
+        return self
+
+    def add_lettuce(self):
+        self.lettuce = True
         return self
 
     def build(self):
         return Burger(self)
 ```
-And then it can be used as:
 
+And then it can be used as:
 ```python
-burger = BurgerBuilder(10).addPepperoni().addLettuce().addTomato().build()
-    print vars(burger)
+if __name__ == '__main__':
+    burger = BurgerBuilder(size=10).add_meat().add_lettuce().add_tomato().build()
+    print(burger)
+    
+    burger2 = BurgerBuilder(size=15).add_meat().add_cheese().add_lettuce().build()
+    print(burger2)
+```
+```bash
+Order: Burger
+  Size: 10
+  Meat: True
+  Cheese: False
+  Tomato: True
+  Lettuce: True
+
+Order: Burger
+  Size: 15
+  Meat: True
+  Cheese: True
+  Tomato: False
+  Lettuce: True
 ```
 
 **When to use?**
 
 When there could be several flavors of an object and to avoid the constructor telescoping. The key difference from the factory pattern is that; factory pattern is to be used when the creation is a one step process while builder pattern is to be used when the creation is a multi step process.
+
 
 Prototype 🐑
 ---------
