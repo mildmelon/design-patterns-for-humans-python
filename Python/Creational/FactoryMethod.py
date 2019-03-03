@@ -1,37 +1,45 @@
-class Interviewer:
-    def askQuestions(self):
+import abc
+
+
+class Interviewer(abc.ABC):
+    @abc.abstractmethod
+    def ask_questions(self):
         pass
 
+
 class Developer(Interviewer):
-    def askQuestions(self):
-        print('Asking about design patterns')
+    def ask_questions(self):
+        print('Developer: asking about design patterns')
 
 
 class CommunityExecutive(Interviewer):
-    def askQuestions(self):
-        print('Asking about community building')
+    def ask_questions(self):
+        print('Community Executive: asking about community building')
 
 
-class HiringManager:
-    def makeInterviewer(self):
+class HiringManager(abc.ABC):
+    @abc.abstractmethod
+    def make_interviewer(self):
         pass
 
-    def takeInterview(self):
-        interviewer = self.makeInterviewer()
-        interviewer.askQuestions()
+    def take_interview(self):
+        interviewer = self.make_interviewer()
+        interviewer.ask_questions()
+
 
 class DevelopmentManager(HiringManager):
-    def makeInterviewer(self):
+    def make_interviewer(self):
         return Developer()
 
+
 class MarketingManager(HiringManager):
-    def makeInterviewer(self):
+    def make_interviewer(self):
         return CommunityExecutive()
 
 
 if __name__ == '__main__':
     devManager = DevelopmentManager()
-    devManager.takeInterview()
+    devManager.take_interview()
 
     marketingManager = MarketingManager()
-    marketingManager.takeInterview()
+    marketingManager.take_interview()

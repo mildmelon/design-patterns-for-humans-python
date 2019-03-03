@@ -129,6 +129,7 @@ Size: 10 x 240
 
 When creating an object is not just a few assignments and involves some logic, it makes sense to put it in a dedicated factory instead of repeating the same code everywhere.
 
+
 Factory Method 🏭
 --------------
 
@@ -144,56 +145,68 @@ Wikipedia says
  **Programmatic Example**
 
 Taking our hiring manager example above. First of all we have an interviewer interface and some implementations for it
-
 ```python
-class Interviewer:
-    def askQuestions(self):
+import abc
+
+
+class Interviewer(abc.ABC):
+    @abc.abstractmethod
+    def ask_questions(self):
         pass
 
+
 class Developer(Interviewer):
-    def askQuestions(self):
-        print 'Asking about design patterns'
+    def ask_questions(self):
+        print('Developer: asking about design patterns')
+
 
 class CommunityExecutive(Interviewer):
-    def askQuestions(self):
-        print 'Asking about community building'
+    def ask_questions(self):
+        print('Community Executive: asking about community building')
 ```
 
 Now let us create our `HiringManager`
-
 ```python
-class HiringManager:
-    def makeInterviewer(self):
+class HiringManager(abc.ABC):
+    @abc.abstractmethod
+    def make_interviewer(self):
         pass
 
-    def takeInterview(self):
-        interviewer = self.makeInterviewer()
-        interviewer.askQuestions()
-
+    def take_interview(self):
+        interviewer = self.make_interviewer()
+        interviewer.ask_questions()
 ```
+
 Now any child can extend it and provide the required interviewer
 ```python
 class DevelopmentManager(HiringManager):
-    def makeInterviewer(self):
+    def make_interviewer(self):
         return Developer()
 
+
 class MarketingManager(HiringManager):
-    def makeInterviewer(self):
+    def make_interviewer(self):
         return CommunityExecutive()
 ```
+
 and then it can be used as
-
 ```python
-devManager = DevelopmentManager()
-devManager.takeInterview()
+if __name__ == '__main__':
+    devManager = DevelopmentManager()
+    devManager.take_interview()
 
-marketingManager = MarketingManager()
-marketingManager.takeInterview()
+    marketingManager = MarketingManager()
+    marketingManager.take_interview()
+```
+```bash
+Developer: asking about design patterns
+Community Executive: asking about community building
 ```
 
 **When to use?**
 
 Useful when there is some generic processing in a class but the required sub-class is dynamically decided at runtime. Or putting it in other words, when the client doesn't know what exact sub-class it might need.
+
 
 Abstract Factory 🔨
 ----------------
@@ -243,21 +256,21 @@ class Carpenter(DoorFittingExpert):
 Now we have our abstract factory that would let us make family of related objects i.e. wooden door factory would create a wooden door and wooden door fitting expert and iron door factory would create an iron door and iron door fitting expert
 ```python
 class DoorFactory:
-    def makeDoor(self):
+    def make_door(self):
         pass
 
     def makeFittingExpert(self):
         pass
 
 class WoodenDoorFactory(DoorFactory):
-    def makeDoor(self):
+    def make_door(self):
         return WoodenDoor()
 
     def makeFittingExpert(self):
         return Carpenter()
 
 class IronDoorFactory(DoorFactory):
-    def makeDoor(self):
+    def make_door(self):
         return IronDoor()
 
     def makeFittingExpert(self):
@@ -267,7 +280,7 @@ And then it can be used as
 ```python
 woodenFactory = WoodenDoorFactory()
 
-door = woodenFactory.makeDoor()
+door = woodenFactory.make_door()
 expert = woodenFactory.makeFittingExpert()
 
 door.getDescription()
@@ -275,7 +288,7 @@ expert.getDescription()
 
 ironFactory = IronDoorFactory()
 
-door = ironFactory.makeDoor()
+door = ironFactory.make_door()
 expert = ironFactory.makeFittingExpert()
 
 door.getDescription()
