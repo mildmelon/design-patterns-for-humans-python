@@ -1,31 +1,39 @@
-class Door:
-    def getWidth(self):
+import abc
+
+
+class Door(abc.ABC):
+    @abc.abstractmethod
+    def get_width(self):
         pass
 
-    def getHeight(self):
+    @abc.abstractmethod
+    def get_height(self):
         pass
+
+    def __str__(self):
+        return f'Size: {self.get_width()} x {self.get_height()}'
+
 
 class WoodenDoor(Door):
-    width = None
-    height = None
-
-    def __init__(self, width = 5, height = 5):
+    def __init__(self, width=5, height=5):
         self.width = width
         self.height = height
 
-    def getWidth(self):
+    def get_width(self):
         return self.width
 
-    def getHeight(self):
+    def get_height(self):
         return self.height
 
-class DoorFactory:
 
+class DoorFactory:
     @staticmethod
-    def makeDoor(width,height):
-        return WoodenDoor(width,height)
+    def make_door(width, height):
+        return WoodenDoor(width, height)
+
 
 if __name__ == '__main__':
-    door = DoorFactory.makeDoor(10,10)
-    print(door.getHeight())
-    print(door.getWidth())
+    door = DoorFactory.make_door(width=10, height=20)
+    print('Width:', door.get_width())
+    print('Height:', door.get_height())
+    print(door)
