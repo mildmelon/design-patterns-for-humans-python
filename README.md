@@ -448,42 +448,54 @@ In short, it allows you to create a copy of an existing object and modify it to 
 
 **Programmatic Example**
 
-
 ```python
 class Sheep:
-    _name = None
-    _category = None
+    def __init__(self, name: str, category: str = 'Mountain Sheep'):
+        self._name = name
+        self._category = category
 
-    def __init__(self, name, category = 'Mountain Sheep'):
-        self.name = name
-        self.category = category
+    @property
+    def name(self):
+        return self._name
 
-    def setName(self, name):
-        self.name = name
+    @name.setter
+    def name(self, name):
+        self._name = name
 
-    def getName(self):
-        return self.name
+    @property
+    def category(self):
+        return self._category
 
-    def setCategory(self, category):
-        self.category = category
-
-    def getCategory(self):
-        return self.category
+    @category.setter
+    def category(self, category):
+        self._category = category
 ```
+
 Then it can be cloned like below
 ```python
-original = Sheep('Jolly')
-print original.getName()
-print original.getCategory()
+import copy
 
-cloned = copy.copy(original)
-cloned.setName('Dolly')
-print cloned.getName()
-print cloned.getCategory()
-print original.getName()
+
+if __name__ == '__main__':
+    original = Sheep('Jolly')
+    print(original.name)
+    print(original.category)
+
+    cloned = copy.copy(original)
+    cloned.name = 'Dolly'
+    print(cloned.name)
+    print(cloned.category)
+    print(original.name)
+```
+```bash
+Jolly
+Mountain Sheep
+Dolly
+Mountain Sheep
+Jolly
 ```
 
-Also you could use the magic method `__clone` to modify the cloning behavior.
+NOTE: `copy.copy()` returns a *shallow copy* of the original object, and changes to data in a shallow copy may cause changes in the original. You can use the magic method `__copy__` to modify the cloning behavior of the prototype object.
 
 **When to use?**
 

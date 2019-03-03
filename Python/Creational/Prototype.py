@@ -1,33 +1,35 @@
 import copy
 
+
 class Sheep:
-    _name = None
-    _category = None
+    def __init__(self, name: str, category: str = 'Mountain Sheep'):
+        self._name = name
+        self._category = category
 
-    def __init__(self, name, category = 'Mountain Sheep'):
-        self.name = name
-        self.category = category
+    @property
+    def name(self):
+        return self._name
 
-    def setName(self, name):
-        self.name = name
+    @name.setter
+    def name(self, name):
+        self._name = name
 
-    def getName(self):
-        return self.name
+    @property
+    def category(self):
+        return self._category
 
-    def setCategory(self, category):
-        self.category = category
-
-    def getCategory(self):
-        return self.category
+    @category.setter
+    def category(self, category):
+        self._category = category
 
 
 if __name__ == '__main__':
     original = Sheep('Jolly')
-    print(original.getName())
-    print(original.getCategory())
+    print(original.name)
+    print(original.category)
 
     cloned = copy.copy(original)
-    cloned.setName('Dolly')
-    print(cloned.getName())
-    print(cloned.getCategory())
-    print(original.getName())
+    cloned.name = 'Dolly'
+    print(cloned.name)
+    print(cloned.category)
+    print(original.name)
