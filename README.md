@@ -73,56 +73,66 @@ Wikipedia says
 
 **Programmatic Example**
 
-First of all we have a door interface and the implementation
+First off, we create an interface `Door` and it's implementation `WoodenDoor`
 ```python
 import abc
 
 
 class Door(abc.ABC):
     @abc.abstractmethod
-    def get_width(self):
+    def get_width(self) -> int:
         pass
 
     @abc.abstractmethod
-    def get_height(self):
+    def get_height(self) -> int:
         pass
 
     def __str__(self):
-        return f'Size: {self.get_width()} x {self.get_height()}'
+        return f'{self.get_width()} x {self.get_height()}'
 
 
 class WoodenDoor(Door):
-    def __init__(self, width=5, height=5):
-        self.width = width
-        self.height = height
+    def __init__(self, width, height):
+        self._width = width
+        self._height = height
 
     def get_width(self):
-        return self.width
+        return self._width
 
     def get_height(self):
-        return self.height
+        return self._height
 ```
 
-Then we have our door factory that makes the door and returns it
+Then we have our door factory that makes a door instance (with default size) and returns it
 ```python
 class DoorFactory:
     @staticmethod
-    def make_door(width, height):
+    def make_door(width=3, height=7) -> Door:
         return WoodenDoor(width, height)
 ```
 
-And then it can be used as
+And then it can be used like
 ```python
 if __name__ == '__main__':
-    door = DoorFactory.make_door(width=10, height=20)
-    print('Width:', door.get_width())
-    print('Height:', door.get_height())
-    print(door)
+    # The factory will produce a basic sized door by default
+    basic_door = DoorFactory.make_door()
+    print('basic door:', str(basic_door))
+    print('width:', basic_door.get_width())
+    print('height:', basic_door.get_height())
+
+    # We need a large door, so we can define a custom width and height
+    large_door = DoorFactory.make_door(width=6, height=14)
+    print('large door:', str(large_door))
+    print('width:', large_door.get_width())
+    print('height:', large_door.get_height())
 ```
 ```bash
-Width: 10
-Height: 20
-Size: 10 x 240
+basic door: 3 x 7
+width: 3
+height: 7
+large door: 6 x 14
+width: 6
+height: 14
 ```
 
 **When to Use?**
