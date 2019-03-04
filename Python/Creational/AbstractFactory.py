@@ -3,43 +3,43 @@ import abc
 
 class Door(abc.ABC):
     @abc.abstractmethod
-    def get_description(self):
+    def get_description(self) -> str:
         pass
 
 
 class WoodenDoor(Door):
     def get_description(self):
-        print('I am a wooden door')
+        return 'I am a wooden door'
 
 
 class IronDoor(Door):
     def get_description(self):
-        print('I am an iron door')
+        return 'I am an iron door'
 
 
 class DoorFittingExpert(abc.ABC):
     @abc.abstractmethod
-    def get_description(self):
+    def get_description(self) -> str:
         pass
 
 
 class Welder(DoorFittingExpert):
     def get_description(self):
-        print('I can only fit iron doors')
+        return 'I can only fit iron doors'
 
 
 class Carpenter(DoorFittingExpert):
     def get_description(self):
-        print('I can only fit wooden doors')
+        return 'I can only fit wooden doors'
 
 
 class DoorFactory(abc.ABC):
     @abc.abstractmethod
-    def make_door(self):
+    def make_door(self) -> Door:
         pass
 
     @abc.abstractmethod
-    def make_fitting_expert(self):
+    def make_fitting_expert(self) -> DoorFittingExpert:
         pass
 
 
@@ -60,18 +60,20 @@ class IronDoorFactory(DoorFactory):
 
 
 if __name__ == '__main__':
+    # Wood
     woodenFactory = WoodenDoorFactory()
 
-    door = woodenFactory.make_door()
-    expert = woodenFactory.make_fitting_expert()
+    wood_door = woodenFactory.make_door()
+    wood_fitting_expert = woodenFactory.make_fitting_expert()
 
-    door.get_description()
-    expert.get_description()
+    print(wood_door.get_description())
+    print(wood_fitting_expert.get_description())
 
+    # Iron
     ironFactory = IronDoorFactory()
 
-    door = ironFactory.make_door()
-    expert = ironFactory.make_fitting_expert()
+    iron_door = ironFactory.make_door()
+    iron_fitting_expert = ironFactory.make_fitting_expert()
 
-    door.get_description()
-    expert.get_description()
+    print(iron_door.get_description())
+    print(iron_fitting_expert.get_description())
