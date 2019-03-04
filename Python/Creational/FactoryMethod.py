@@ -19,7 +19,7 @@ class CommunityExecutive(Interviewer):
 
 class HiringManager(abc.ABC):
     @abc.abstractmethod
-    def make_interviewer(self):
+    def make_interviewer(self) -> Interviewer:
         pass
 
     def take_interview(self):
