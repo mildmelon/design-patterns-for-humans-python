@@ -720,63 +720,82 @@ Wikipedia says
 
 **Programmatic Example**
 
-Translating our WebPage example from above. Here we have the `WebPage` hierarchy
-
+Translating our WebPage example from above. Here we have the `Theme` hierarchy 
 ```python
-class WebPage:
-    def __init__(self, theme):
-        self.theme = theme
+import abc
 
-    def getContent(self):
+
+class Theme(abc.ABC):
+    @abc.abstractmethod
+    def get_color(self) -> str:
         pass
 
-class About(WebPage):
-    _theme = None
-
-    def __init__(self, theme):
-        self.theme = theme
-
-    def getContent(self):
-        return "About page in " + self.theme.getColor()
-
-class Careers(WebPage):
-    _theme = None
-
-    def __init__(self, theme):
-        self.theme = theme
-
-    def getContent(self):
-        return "Careers page in " + self.theme.getColor()
-```
-And the separate theme hierarchy
-```python
-class Theme:
-    def getColor(self):
-        pass
 
 class DarkTheme(Theme):
-    def getColor(self):
+    def get_color(self):
         return 'Dark Black'
 
+
 class LightTheme(Theme):
-    def getColor(self):
+    def get_color(self):
         return 'Off White'
 
+
 class AquaTheme(Theme):
-    def getColor(self):
+    def get_color(self):
         return 'Light Blue'
 ```
 
-And both the hierarchies
+And the `WebPage` hierarchy
 ```python
-darkTheme = DarkTheme()
+class WebPage:
+    def __init__(self, name: str, theme: Theme):
+        self._name = name
+        self._theme = theme
 
-about = About(darkTheme)
-careers = Careers(darkTheme)
+    def get_content(self):
+        return f'{self._name} page in {self._theme.get_color()}'
 
-print about.getContent()
-print careers.getContent()
+
+class AboutPage(WebPage):
+    def __init__(self, theme: Theme):
+        super().__init__('About', theme)
+
+
+class CareersPage(WebPage):
+    def __init__(self, theme: Theme):
+        super().__init__('Careers', theme)
 ```
+
+And their uses
+```python
+if __name__ == '__main__':
+    # Create two lists of all theme and page classes
+    themes = [DarkTheme, LightTheme, AquaTheme]
+    pages = [AboutPage, CareersPage]
+
+    # Loop through all theme classes
+    for theme_class in themes:
+        # Create a new instance of the theme
+        theme = theme_class()
+
+        # Loop through all pages classes
+        for page_class in pages:
+            # Create a new instance of the page
+            page = page_class(theme)
+
+            # Output the page content to console
+            print(page.get_content())
+```
+```bash
+About page in Dark Black
+Careers page in Dark Black
+About page in Off White
+Careers page in Off White
+About page in Light Blue
+Careers page in Light Blue
+```
+
 
 Composite 🌿
 ---------
@@ -1518,7 +1537,7 @@ class EditorMemento:
     def __init__(self, content):
         self.content = content
 
-    def getContent(self):
+    def get_content(self):
         return self.content
 ```
 
@@ -1531,14 +1550,14 @@ class Editor:
     def type(self, words):
         self._content = self._content + ' ' + words
 
-    def getContent(self):
+    def get_content(self):
        return self._content
 
     def save(self):
         return EditorMemento(self._content)
 
     def restore(self, memento):
-        self.content = memento.getContent()
+        self.content = memento.get_content()
 ```
 
 And then it can be used as
@@ -1552,10 +1571,10 @@ editor.type('This is the second.')
 saved = editor.save()
 editor.type('And this is the third')
 
-print editor.getContent() # This is the first sentence. This is second. And this is third.
+print editor.get_content() # This is the first sentence. This is second. And this is third.
 
 editor.restore(saved)
-editor.getContent() # This is the first sentence. This is second.
+editor.get_content() # This is the first sentence. This is second.
 ```
 
 Observer 😎
