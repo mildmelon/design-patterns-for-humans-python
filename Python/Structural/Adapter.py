@@ -1,36 +1,51 @@
-class Lion:
+import abc
+
+
+class Lion(abc.ABC):
+    @abc.abstractmethod
     def roar(self):
         pass
+
 
 class AfricanLion(Lion):
     def roar(self):
-        pass
+        print('African Lion roars...')
+
 
 class AsianLion(Lion):
     def roar(self):
-        pass
+        print('Asian Lion roars...')
+
 
 class Hunter:
-    def hunt(self, lion):
+    @staticmethod
+    def attack(lion: Lion):
         lion.roar()
+
 
 class WildDog:
     @staticmethod
     def bark():
-        pass
+        print('Wild Dog barks...')
+
 
 class WildDogAdapter(Lion):
-    _dog = None
-
-    def __init__(self, dog):
+    def __init__(self, dog: WildDog):
         self._dog = dog
 
     def roar(self):
         self._dog.bark()
 
-if __name__ == '__main__':
-    wildDog = WildDog
-    wildDogAdapter = WildDogAdapter(wildDog)
 
+if __name__ == '__main__':
     hunter = Hunter()
-    hunter.hunt(wildDogAdapter)
+
+    african_lion = AfricanLion()
+    hunter.attack(african_lion)
+
+    asian_lion = AsianLion()
+    hunter.attack(asian_lion)
+
+    wildDog = WildDog()
+    wildDogAdapter = WildDogAdapter(wildDog)
+    hunter.attack(wildDogAdapter)
