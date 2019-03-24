@@ -1,81 +1,86 @@
-class Employee:
-    def __init__(self, name, salary):
+from abc import ABC, abstractmethod
+
+
+class Employee(ABC):
+    def __init__(self, name: str, salary: int):
+        self._name = name
+        self._salary = salary
+
+    @property
+    @abstractmethod
+    def name(self) -> str:
         pass
 
-    def getName(self):
+    @property
+    @abstractmethod
+    def salary(self) -> int:
         pass
 
-    def setSalary(self, salary):
+    @salary.setter
+    @abstractmethod
+    def salary(self, salary: int):
         pass
 
-    def getSalary(self):
-        pass
-
-    def getRoles(self):
-        pass
 
 class Developer(Employee):
-    _salary = None
-    _name = None
-    _roles = None
-
-    def __init__(self, name, salary):
-        self._name = name
-        self._salary = salary
-
-    def getName(self):
+    @property
+    def name(self):
         return self._name
 
-    def setSalary(self, salary):
-        self._salary = salary
-
-    def getSalary(self):
+    @property
+    def salary(self):
         return self._salary
 
-    def getRoles(self):
-        return self._roles
+    @salary.setter
+    def salary(self, salary):
+        self._salary = salary
+
 
 class Designer(Employee):
-    _salary = None
-    _name = None
-    _roles = None
-
-    def __init__(self, name, salary):
-        self._name = name
-        self._salary = salary
-
-    def getName(self):
+    @property
+    def name(self):
         return self._name
 
-    def setSalary(self, salary):
-        self._salary = salary
-
-    def getSalary(self):
+    @property
+    def salary(self):
         return self._salary
 
-    def getRoles(self):
-        return self._roles
+    @salary.setter
+    def salary(self, salary):
+        self._salary = salary
+
 
 class Organization:
-    _employees = []
+    def __init__(self):
+        self._employees = []
 
-    def addEmployee(self, employee):
+    def add_employee(self, employee):
         self._employees.append(employee)
 
-    def getNetSalaries(self):
-        netSalary = 0
+    def get_net_salaries(self):
+        net_salary = 0
 
         for employee in self._employees:
-            netSalary += employee.getSalary()
+            net_salary += employee.salary
 
-        return netSalary
+        return net_salary
+
 
 if __name__ == '__main__':
+    # Create two new employees
     john = Developer('John Doe', 12000)
     jane = Designer('Jane Doe', 15000)
 
+    # Create an org and add the new employees
     organization = Organization()
-    organization.addEmployee(john)
-    organization.addEmployee(jane)
+    organization.add_employee(john)
+    organization.add_employee(jane)
 
-    print('Net Salaries ' + str(organization.getNetSalaries()))
+    # Display net salaries for all employees
+    print('Net Salaries ' + str(organization.get_net_salaries()))
+
+    # Give a raise to john
+    john.salary = 15000
+
+    # Display updated net salaries for all employees
+    print('Net Salaries ' + str(organization.get_net_salaries()))
