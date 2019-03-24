@@ -926,83 +926,89 @@ Wikipedia says
 
 Lets take coffee for example. First of all we have a simple coffee implementing the coffee interface
 ```python
-import abc
+from abc import ABC, abstractmethod
 
 
-class Coffee(abc.ABC):
-    @abc.abstractmethod
-    def get_cost(self) -> int:
+class Coffee(ABC):
+    @property
+    @abstractmethod
+    def cost(self) -> int:
         pass
 
-    @abc.abstractmethod
-    def get_description(self) -> str:
+    @property
+    @abstractmethod
+    def description(self) -> str:
         pass
 
     def __str__(self):
-        return f'{self.get_description()}: ${self.get_cost()}'
+        return f'{self.description}: ${self.cost}'
 
     def __repr__(self):
         return self.__str__()
 
 
 class SimpleCoffee(Coffee):
-    def get_cost(self):
+    @property
+    def cost(self):
         return 2
 
-    def get_description(self):
+    @property
+    def description(self):
         return 'Simple Coffee'
 ```
 
 We want to make the code extensible to allow options to modify it if required. Lets make some mixins (decorators)
 ```python
 class CoffeeMixin(Coffee):
-    @abc.abstractmethod
-    def __init__(self, coffee: Coffee, cost: int, desc: str):
+    def __init__(self, coffee: Coffee, cost: int, description: str):
         self._coffee = coffee
         self._cost = cost
-        self._desc = desc
+        self._description = description
 
-    def get_cost(self):
-        return self._coffee.get_cost() + self._cost
+    @property
+    def cost(self):
+        return self._coffee.cost + self._cost
 
-    def get_description(self):
-        return f'{self._coffee.get_description()}, {self._desc}'
+    @property
+    def description(self):
+        return f'{self._coffee.description}, {self._description}'
 
 
 class MilkMixin(CoffeeMixin):
     def __init__(self, coffee):
-        super().__init__(coffee, cost=2, desc='milk')
+        super().__init__(coffee, cost=2, description='milk')
 
 
 class WhipMixin(CoffeeMixin):
     def __init__(self, coffee):
-        super().__init__(coffee, cost=5, desc='whip')
+        super().__init__(coffee, cost=5, description='whip')
 
 
 class VanillaMixin(CoffeeMixin):
     def __init__(self, coffee):
-        super().__init__(coffee, cost=3, desc='vanilla')
+        super().__init__(coffee, cost=3, description='vanilla')
 ```
 
 Lets make a coffee now
 ```python
-order = SimpleCoffee()
-print(order)
+if __name__ == '__main__':
+    order = SimpleCoffee()
+    print(order)
 
-order = MilkMixin(order)
-print(order)
+    order = MilkMixin(order)
+    print(order)
 
-order = VanillaMixin(order)
-print(order)
+    order = WhipMixin(order)
+    print(order)
 
-order = WhipMixin(order)
-print(order)
+    order = VanillaMixin(order)
+    print(order)
 ```
 ```bash
 Simple Coffee: $2
 Simple Coffee, milk: $4
-Simple Coffee, milk, vanilla: $7
-Simple Coffee, milk, vanilla, whip: $12
+Simple Coffee, milk, whip: $9
+Simple Coffee, milk, whip, vanilla: $12
 ```
 
 
